@@ -9,7 +9,7 @@ public interface IProjectManage {
 
     boolean checkProjectName(String name);
 
-    EasyException.Code save(String name,String description);
+    EasyException.Code save(Long id,String name,String description);
 
     List<Project> findProject(Long id, String name);
 

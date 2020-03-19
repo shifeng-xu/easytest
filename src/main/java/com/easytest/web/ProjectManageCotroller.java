@@ -33,13 +33,13 @@ public class ProjectManageCotroller {
     @RequestMapping(value = "/save",method = RequestMethod.POST)
     public ProjectSaveResponse saveProject(@RequestBody ProjectSaveRequest request){
 
-        EasyException.Code result=projectManageService.save(request.getName(),request.getDescription());
-
+        EasyException.Code result=projectManageService.save(request.getId(),request.getName(),request.getDescription());
         ProjectSaveResponse response=new ProjectSaveResponse();
         response.setCode(result);
         return response;
 
     }
+
 
     /**
      * 按条件搜索项目（只返回项目ID和名称）
@@ -47,9 +47,12 @@ public class ProjectManageCotroller {
     @RequestMapping(value = "/search",method = RequestMethod.POST)
     public ProjectSearchResponse searchResponse(@RequestBody ProjectSearchRequest request){
         List<Project> projectList= projectManageService.findProject(request.getId(),request.getName());
+        for(Project project:projectList){
+            project.setCaseNum(project.getTestCases().size());
+            project.setGlobalParamNum(project.getGlobalParams().size());
+        }
         ProjectSearchResponse response=new ProjectSearchResponse();
         response.setProjectList(projectList);
-        response.setCode(EasyException.Code.STATUS_OK);
         return response;
     }
 

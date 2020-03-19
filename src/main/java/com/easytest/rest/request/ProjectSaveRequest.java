@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectSaveRequest {
+
+    private Long id;
+
     private String name;
 
     private String description;
@@ -22,5 +25,14 @@ public class ProjectSaveRequest {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

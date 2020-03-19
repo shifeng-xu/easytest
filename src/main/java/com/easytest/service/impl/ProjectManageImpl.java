@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class IProjectManageImpl implements IProjectManage {
+public class ProjectManageImpl implements IProjectManage {
 
     @Autowired
     private ProjectDao projectDao;
@@ -24,12 +24,28 @@ public class IProjectManageImpl implements IProjectManage {
             return false;
     }
 
+    /**
+     * 创建新项目
+     * @param name
+     * @param description
+     * @return
+     */
     @Override
-    public EasyException.Code save(String name,String description) {
-        //检查项目是否重名
-        if(!checkProjectName(name)){
-            return EasyException.Code.NAME_EXIST;
+    public EasyException.Code save(Long id,String name,String description) {
+        //新建的项目检查是否重名
+//        if(!checkProjectName(name)&&id==null){
+//            return EasyException.Code.NAME_EXIST;
+//        }
+        //不是新项目，则先查询出来
+        if(id!=null){
+            Project project=projectDao.getProjectById(id);
+            project.setName(name);
+            project.setDescription(description);
+            projectDao.save(project);
+            return EasyException.Code.STATUS_OK;
+
         }
+        //新项目
         Project project=new Project();
         project.setName(name);
         project.setDescription(description);

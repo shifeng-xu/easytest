@@ -23,6 +23,12 @@ public class Project extends BaseEntity{
     @OneToMany(cascade = {CascadeType.ALL})
     private List<GlobalParam> globalParams; //隶属于项目的全局变量
 
+    @Transient
+    private Integer caseNum; //包含的case数量
+
+    @Transient
+    private Integer globalParamNum; //包含的全局变量的数量
+
 
 
     public String getName() {
@@ -55,5 +61,21 @@ public class Project extends BaseEntity{
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getCaseNum() {
+        return caseNum;
+    }
+
+    public void setCaseNum(Integer caseNum) {
+        this.caseNum = caseNum;
+    }
+
+    public Integer getGlobalParamNum() {
+        return globalParamNum;
+    }
+
+    public void setGlobalParamNum(Integer globalParamNum) {
+        this.globalParamNum = globalParamNum;
     }
 }
